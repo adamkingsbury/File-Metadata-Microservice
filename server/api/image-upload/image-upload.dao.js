@@ -31,7 +31,6 @@ imageUploadSchema.statics.createNew = (uploadObject) => {
 }
 
 imageUploadSchema.statics.getById = (id) => {
-  console.log("looking for a specific record");
   return new Promise((resolve, reject) => {
     if (!_.isString(id)) {
       return reject(new TypeError('Id is not a valid string.'));
@@ -40,7 +39,6 @@ imageUploadSchema.statics.getById = (id) => {
     imageUpload
     .findById(id)
     .exec(function(err, result) {
-      console.log(result);
       err ? reject(err)
       : resolve(result);
     });

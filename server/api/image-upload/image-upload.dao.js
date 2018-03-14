@@ -22,12 +22,10 @@ imageUploadSchema.statics.createNew = (uploadObject) => {
         return reject(new TypeError('imageUpload is not a valid object.'));
       }
       var _something = new imageUpload(uploadObject);
-      setTimeout(function() {
-        _something.save(function(err, saved) {
-          err ? reject(err)
-          : resolve(saved);
-        });
-      }, 1000);
+      _something.save(function(err, saved) {
+        err ? reject(err)
+        : resolve(saved);
+      });
     });
 }
 

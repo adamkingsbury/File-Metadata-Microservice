@@ -19,9 +19,8 @@ export default class ImageUploadController {
 
 
   static createNew(req, res) {
-    console.log(req.file);
     let fPath = process.cwd() + "/" + req.file.destination + req.file.filename;
-    console.log(fPath);
+
     //calculate the dimensions of the file
     sizeOf(fPath, function (err, dimensions) {
       console.log('Processing Dimensions')
@@ -49,20 +48,20 @@ export default class ImageUploadController {
       };
 
       // finaliseResponse(200, {response: "I would send the mongo call now"})
-      console.log(_imageUpload);
       ImageUploadDao
         .createNew(_imageUpload)
-        .then(imageUpload => finaliseResponse(201, _imageUpload))
+        .then((result) => {
+          let objResult = result.toObject();
+          delete objResult.imgBinary;
+          finaliseResponse(201, objResult);
+        })
         .catch(error => finaliseResponse(400, error));
     }
 
 
-
-
-
-
-    let finaliseResponse = function (status, json,) {
+    let finaliseResponse = function (status, json) {
       console.log('finalising response');
+      console.log(json);
       //always clear out the temporary file
       fs.unlink(req.file.destination + req.file.filename, function (){
         //now send the buildResponse

@@ -11,4 +11,4 @@ const _imageUploadSchema = {
   }
 }
 
-export default mongoose.Schema(_imageUploadSchema);
+export default mongoose.Schema(_imageUploadSchema, { bufferCommands: false });

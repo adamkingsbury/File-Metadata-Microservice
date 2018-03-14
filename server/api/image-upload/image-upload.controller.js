@@ -3,12 +3,20 @@ var sizeOf = require('image-size');
 var fs = require('fs');
 
 export default class ImageUploadController {
+
+
+
+
   static getAll(req, res) {
     ImageUploadDao
       .getAll()
       .then(imageUploads => res.status(200).json(imageUploads))
       .catch(error => res.status(400).json(error));
   }
+
+
+
+
 
   static createNew(req, res) {
     console.log(req.file);
@@ -48,6 +56,11 @@ export default class ImageUploadController {
         .catch(error => finaliseResponse(400, error));
     }
 
+
+
+
+
+
     let finaliseResponse = function (status, json,) {
       console.log('finalising response');
       //always clear out the temporary file
@@ -58,6 +71,10 @@ export default class ImageUploadController {
     }
 
   }
+
+
+
+
 
   static removeById(req, res) {
     let _id = req.params.id;

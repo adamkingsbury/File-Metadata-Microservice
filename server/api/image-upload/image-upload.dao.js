@@ -30,15 +30,15 @@ imageUploadSchema.statics.createNew = (uploadObject) => {
     });
 }
 
-imageUploadSchema.statics.getById = (id) => {
+imageUploadSchema.statics.getById = (id, includeImage) => {
   return new Promise((resolve, reject) => {
     if (!_.isString(id)) {
       return reject(new TypeError('Id is not a valid string.'));
     }
 
-    imageUpload
-    .findById(id)
-    .exec(function(err, result) {
+    var img = imageUpload.findById(id);
+    if (!includeImage) img.select("-imgBinary");
+    img.exec(function(err, result) {
       err ? reject(err)
       : resolve(result);
     });

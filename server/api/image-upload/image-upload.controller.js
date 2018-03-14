@@ -77,9 +77,10 @@ export default class ImageUploadController {
 
   static getById(req, res) {
     let _id = req.params.id;
+    let includeImage = typeof req.query.includeImage != "undefined";
 
     ImageUploadDao
-      .getById(_id)
+      .getById(_id, includeImage)
       .then((findResult) => res.status(200).json(findResult))
       .catch(error => res.status(400).json(error));
   }

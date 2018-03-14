@@ -9,6 +9,7 @@ imageUploadSchema.statics.getAll = () => {
 
     imageUpload
     .find(_query)
+    .select('-imgBinary')
     .exec(function(err, todos) {
       err ? reject(err)
       : resolve(todos);
@@ -27,6 +28,23 @@ imageUploadSchema.statics.createNew = (uploadObject) => {
         : resolve(saved);
       });
     });
+}
+
+imageUploadSchema.statics.getById = (id) => {
+  console.log("looking for a specific record");
+  return new Promise((resolve, reject) => {
+    if (!_.isString(id)) {
+      return reject(new TypeError('Id is not a valid string.'));
+    }
+
+    imageUpload
+    .findById(id)
+    .exec(function(err, result) {
+      console.log(result);
+      err ? reject(err)
+      : resolve(result);
+    });
+  });
 }
 
 imageUploadSchema.statics.removeById = (id) => {

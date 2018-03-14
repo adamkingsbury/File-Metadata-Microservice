@@ -19,6 +19,7 @@ router
 
 router
   .route('/:id')
+  .get(ImageUploadController.getById)
   .delete(ImageUploadController.removeById);
 
 module.exports = router;

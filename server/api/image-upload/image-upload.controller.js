@@ -75,6 +75,22 @@ export default class ImageUploadController {
 
 
 
+  static getById(req, res) {
+    let _id = req.params.id;
+
+    ImageUploadDao
+      .getById(_id)
+      .then((findResult) => res.status(200).json(findResult))
+      .catch(error => res.status(400).json(error));
+  }
+
+
+
+
+
+
+
+
   static removeById(req, res) {
     let _id = req.params.id;
 

@@ -9,19 +9,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>2018-01-01 19:35</td>
-      <td>Test.jpg</td>
-      <td>100</td>
-      <td>300</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>2018-01-03 02:35</td>
-      <td>fullscreen.jpg</td>
-      <td>1920</td>
-      <td>1082</td>
+    <tr *ngFor="let upload of uploadHistory">
+      <th scope="row">{{upload._id}}</th>
+      <td>{{upload.uploadedAt}}</td>
+      <td>{{upload.filename}}</td>
+      <td>{{upload.dimensions.width}}</td>
+      <td>{{upload.dimensions.height}}</td>
     </tr>
   </tbody>
 </table>

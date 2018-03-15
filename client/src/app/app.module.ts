@@ -4,8 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
-import { ImageHistoryComponent } from './image-history/image-history.component';
-import { ImageHistoryService } from './image-history/image-history.service';
+import { ImageHistoryComponent } from './images/image-history/image-history.component';
+import { ImageHistoryService } from './images/service/image-history.service';
 import { ImageDetailComponent } from './images/image-detail/image-detail.component';
 
 

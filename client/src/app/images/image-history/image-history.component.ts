@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageHistoryService } from './image-history.service';
-import { UploadedImage } from './uploaded-image';
+import { ImageHistoryService } from '../service/image-history.service';
+import { UploadedImage } from '../uploaded-image';
 
 
 @Component({

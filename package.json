@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node ./server/app.js"
+    "start-dev": "concurrently \"nodemon --watch server --exec babel-node ./server/app.js\" \"cd ./client/ && ng serve --proxy-config proxy.conf.json\""
   },
   "dependencies": {
     "body-parser": "~1.18.2",

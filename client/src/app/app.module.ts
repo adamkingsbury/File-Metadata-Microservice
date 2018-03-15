@@ -5,23 +5,20 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppComponent } from './app.component';
-import { ImageHistoryComponent } from './images/image-history/image-history.component';
-import { ImageHistoryService } from './images/service/image-history.service';
-import { ImageDetailComponent } from './images/image-detail/image-detail.component';
+import { ImagesModule } from './images/images.module';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ImageHistoryComponent,
-    ImageDetailComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    ImagesModule
   ],
-  providers: [ImageHistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

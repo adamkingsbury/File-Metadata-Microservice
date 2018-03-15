@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageHistoryService } from '../service/image-history.service';
 import { UploadedImage } from '../uploaded-image';
+import { ImageDetailComponent } from '../image-detail/image-detail.component';
 
 
 @Component({
@@ -12,7 +13,10 @@ export class ImageHistoryComponent implements OnInit {
 
   uploadHistory: UploadedImage[];
 
-  constructor(private imageHistService: ImageHistoryService) { }
+  constructor(
+    private imageHistService: ImageHistoryService,
+    private imageDetail:ImageDetailComponent
+  ) { }
 
   ngOnInit() {
     this.getHistory();
@@ -26,6 +30,10 @@ export class ImageHistoryComponent implements OnInit {
         console.log(data);
         this.uploadHistory = data;
       });
+  }
+
+  showDetail (recordToShow: UploadedImage):void{
+    this.imageDetail.open(recordToShow);
   }
 
 }

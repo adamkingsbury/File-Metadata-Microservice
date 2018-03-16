@@ -1,6 +1,6 @@
-import Buffer from "Buffer";
 
 export class UploadedImage {
+	fileType: string;
   _id: string;
   __v: string;
   uploadedAt: string;
@@ -10,5 +10,5 @@ export class UploadedImage {
     width: number,
     height: number
   };
-  image: Buffer;
+  imageBase64: string;
 }

@@ -23,11 +23,8 @@ export class ImageHistoryComponent implements OnInit {
   }
 
   getHistory():void {
-    console.log("requesting getHistory")
     this.imageHistService.getAll()
       .subscribe(data => {
-        console.log("Got the http data");
-        console.log(data);
         this.uploadHistory = data;
       });
   }

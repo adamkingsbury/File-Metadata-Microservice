@@ -8,10 +8,19 @@ export class ImageHistoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUrl = 'api/image-upload';
-
   getAll(): Observable<UploadedImage[]> {
-    return this.http.get<UploadedImage[]>(this.getAllUrl);
+    const getAllUrl = 'api/image-upload';
+    return this.http.get<UploadedImage[]>(getAllUrl);
+  }
+
+
+  getUploadRecordById(id: string, includeImage?: boolean): Observable<UploadedImage> {
+    const getByIdUrl = 'api/image-upload';
+
+    let callUrl = getByIdUrl + `/${id}`;
+    if (includeImage) callUrl += '?includeImage=true';
+
+    return this.http.get<UploadedImage>(callUrl);
   }
 
 }

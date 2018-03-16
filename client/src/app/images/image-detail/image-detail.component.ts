@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import {UploadedImage} from '../uploaded-image';
 import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { DomSanitizer } from '@angular/platform-browser';
+
+
+import {UploadedImage} from '../uploaded-image';
+import { ImageHistoryService } from '../service/image-history.service';
 
 @Component({
   selector: 'app-image-detail',
@@ -9,21 +13,28 @@ import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bo
 })
 export class ImageDetailComponent implements OnInit {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private historyService: ImageHistoryService
+  ) { }
 
   ngOnInit() {
   }
 
   open(content:UploadedImage): void {
     console.log("Image Detail Open Triggered");
-    console.log(JSON.stringify(content));
 
-    const modalRef = this.modalService.open(
-      ImageDetailContent,
-      { windowClass: 'image-detail-modal modal-dialog-centered' }
-    );
+    let lookupKey = content._id;
+    this.historyService.getUploadRecordById(lookupKey, true)
+      .subscribe(rec => {
 
-    modalRef.componentInstance.displayRecord = content;
+        const modalRef = this.modalService.open(
+          ImageDetailContent,
+          { windowClass: 'image-detail-modal modal-dialog-centered' }
+        );
+
+        modalRef.componentInstance.displayRecord = rec;
+      });
   }
 
   private getDismissReason(reason: any): string {
@@ -44,5 +55,9 @@ export class ImageDetailComponent implements OnInit {
 })
 export class ImageDetailContent {
   @Input() displayRecord: UploadedImage;
-  constructor(public activeModal: NgbActiveModal) {};
+  constructor(public activeModal: NgbActiveModal, private sanitizer: DomSanitizer) {};
+
+  showSafeUrlEncoding() {
+    return this.sanitizer.bypassSecurityTrustUrl(this.displayRecord.imageBase64);
+  }
 }

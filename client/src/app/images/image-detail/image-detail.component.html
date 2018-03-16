@@ -5,7 +5,11 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="container-fluid">
+    <div class="container-fluid text-center" *ngIf="!displayRecord">
+      <h1><span class="oi oi-cloud-download"></span></h1>
+      <h4>Loading....</h4>
+    </div>
+    <div class="container-fluid" *ngIf="displayRecord">
       <div class="row">
         <div class="col-md-12">
           <table class="table">
@@ -19,7 +23,7 @@
             <tbody>
               <tr>
                 <td>Filename</td>
-                <td>{{displayRecord.filename}}</td>
+                <td>This is an error introduced in the image modal fixes branch to test how git pulls work</td>
               </tr>
               <tr>
                 <td>Filesize</td>
@@ -35,7 +39,9 @@
               </tr>
             </tbody>
           </table>
-          <img [src]='showSafeUrlEncoding()' alt="">
+        </div>
+        <div class="col-lg-12">
+          <img class="img-fluid" [src]='showSafeUrlEncoding()' alt="">
         </div>
       </div>
     </div>

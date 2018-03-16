@@ -27,14 +27,13 @@ export class ImageDetailComponent implements OnInit {
     let lookupKey = content._id;
     this.historyService.getUploadRecordById(lookupKey, true)
       .subscribe(rec => {
-
-        const modalRef = this.modalService.open(
-          ImageDetailContent,
-          { windowClass: 'image-detail-modal modal-dialog-centered' }
-        );
-
         modalRef.componentInstance.displayRecord = rec;
       });
+
+    const modalRef = this.modalService.open(
+      ImageDetailContent,
+      { windowClass: 'image-detail-modal modal-dialog-centered', size: 'lg' }
+    );
   }
 
   private getDismissReason(reason: any): string {

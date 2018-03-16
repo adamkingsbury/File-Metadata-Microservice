@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const _imageUploadSchema = {
   filename: {type: String, required: true},
   fileSize: {type: Number},
-  imgBinary: {type: Buffer },
+  imageBase64: {type: String },
   uploadedAt: {type: Date, default: Date.now},
   dimensions: {
     width: {type: Number},//, required: true},

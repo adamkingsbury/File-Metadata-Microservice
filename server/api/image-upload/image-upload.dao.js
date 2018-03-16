@@ -9,7 +9,7 @@ imageUploadSchema.statics.getAll = () => {
 
     imageUpload
     .find(_query)
-    .select('-imgBinary')
+    .select('-imageBase64')
     .exec(function(err, todos) {
       err ? reject(err)
       : resolve(todos);
@@ -37,7 +37,7 @@ imageUploadSchema.statics.getById = (id, includeImage) => {
     }
 
     var img = imageUpload.findById(id);
-    if (!includeImage) img.select("-imgBinary");
+    if (!includeImage) img.select("-imageBase64");
     img.exec(function(err, result) {
       err ? reject(err)
       : resolve(result);

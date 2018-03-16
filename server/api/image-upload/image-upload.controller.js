@@ -1,6 +1,9 @@
 import ImageUploadDao from './image-upload.dao';
 var sizeOf = require('image-size');
 var fs = require('fs');
+var FileAPI = require('file-api')
+  , File = FileAPI.File
+  , FileReader = FileAPI.FileReader;
 
 export default class ImageUploadController {
 
@@ -28,8 +31,18 @@ export default class ImageUploadController {
 
       req.file.dimensions = dimensions;
 
-      //now read in the file so that it can be sent to mongo as imgBinary
-      fs.readFile(fPath, buildResponse)
+      var fileReader = new FileReader();
+      fileReader.readAsDataURL(new File(fPath));
+
+      fileReader.addEventListener('error', function (err){
+        finaliseResponse(400,err)
+      });
+
+      fileReader.addEventListener('load', function (loadVals) {
+        console.log(loadVals);
+        let data = loadVals.target.result;
+        buildResponse(null, data);
+      });
     });
 
     let buildResponse = function (err, fileData){
@@ -40,19 +53,19 @@ export default class ImageUploadController {
       let _imageUpload = {
         filename: req.file.originalname,
         fileSize: req.file.size,
-        imgBinary: fileData,
+        imageBase64: fileData,
         dimensions: {
           width: req.file.dimensions.width,
           height: req.file.dimensions.height
         }
       };
 
-      // finaliseResponse(200, {response: "I would send the mongo call now"})
+      //Write the record to the database
       ImageUploadDao
         .createNew(_imageUpload)
         .then((result) => {
           let objResult = result.toObject();
-          delete objResult.imgBinary;
+          delete objResult.imageBase64;
           finaliseResponse(201, objResult);
         })
         .catch(error => finaliseResponse(400, error));
@@ -77,7 +90,7 @@ export default class ImageUploadController {
 
   static getById(req, res) {
     let _id = req.params.id;
-    let includeImage = typeof req.query.includeImage != "undefined";
+    let includeImage = req.query.includeImage === "true";
 
     ImageUploadDao
       .getById(_id, includeImage)

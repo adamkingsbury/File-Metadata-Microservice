@@ -19,7 +19,11 @@ export class ImageHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const me = this;
     this.getHistory();
+    this.imageDetail.onDeletion.subscribe(function(deleteId){
+      me.deleteRecord(deleteId);
+    });
   }
 
   getHistory():void {
@@ -33,4 +37,18 @@ export class ImageHistoryComponent implements OnInit {
     this.imageDetail.open(recordToShow);
   }
 
+  deleteRecord (deleteId: string): void {
+    console.log('A delete event was recieved....quickly deleting');
+    console.log(`original length: ${this.uploadHistory.length}`);
+    // quickly delete the value on client side
+    this.uploadHistory = this.uploadHistory.filter((rec: UploadedImage) => {
+      return rec._id !== deleteId;
+    });
+    console.log(`new length: ${this.uploadHistory.length}`);
+
+
+    //more slowly refresf the list from server.
+    console.log('now more slowly refreshing')
+    this.getHistory();
+  }
 }

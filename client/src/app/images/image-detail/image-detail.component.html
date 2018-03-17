@@ -23,7 +23,7 @@
             <tbody>
               <tr>
                 <td>Filename</td>
-                <td>This is an error introduced in the image modal fixes branch to test how git pulls work</td>
+                <td>{{displayRecord.filename}}</td>
               </tr>
               <tr>
                 <td>Filesize</td>
@@ -47,5 +47,6 @@
     </div>
   </div>
   <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="activeModal.close('Delete Click')">Delete Upload</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
   </div>

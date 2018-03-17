@@ -23,4 +23,10 @@ export class ImageHistoryService {
     return this.http.get<UploadedImage>(callUrl);
   }
 
+  deleteUploadRecordById(id: string): Observable<Object> {
+    const deleteByIdUrl = 'api/image-upload';
+    let callUrl = deleteByIdUrl + `/${id}`;
+    return this.http.delete(callUrl);
+  }
+
 }

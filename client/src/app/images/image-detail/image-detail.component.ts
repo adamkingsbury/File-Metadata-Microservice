@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -11,39 +11,44 @@ import { ImageHistoryService } from '../service/image-history.service';
   encapsulation: ViewEncapsulation.None,
   template: ''
 })
-export class ImageDetailComponent implements OnInit {
+export class ImageDetailComponent {
 
   constructor(
     private modalService: NgbModal,
     private historyService: ImageHistoryService
   ) { }
 
-  ngOnInit() {
-  }
 
-  open(content:UploadedImage): void {
-    console.log("Image Detail Open Triggered");
+  @Output() onDeletion = new EventEmitter<string>();
+  detailKey: string;
 
-    let lookupKey = content._id;
-    this.historyService.getUploadRecordById(lookupKey, true)
-      .subscribe(rec => {
-        modalRef.componentInstance.displayRecord = rec;
-      });
+  open(content: UploadedImage): void {
 
     const modalRef = this.modalService.open(
       ImageDetailContent,
       { windowClass: 'image-detail-modal modal-dialog-centered', size: 'lg' }
     );
-  }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
+    //load and populate the modal contents using the api service
+    this.detailKey = content._id;
+    this.historyService.getUploadRecordById(this.detailKey, true)
+      .subscribe(rec => {
+        modalRef.componentInstance.displayRecord = rec;
+      });
+
+    //listen for modal close, check if the delete button was used and delete if needed
+    const me = this;
+    modalRef.result.then(
+      function(closeResult) {
+        if (closeResult === 'Delete Click') {
+          me.historyService
+            .deleteUploadRecordById(me.detailKey)
+            .subscribe(function(){
+              me.onDeletion.emit(me.detailKey);
+          });
+        }
+      }
+    );
   }
 }
 

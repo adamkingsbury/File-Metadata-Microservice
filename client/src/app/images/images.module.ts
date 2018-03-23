@@ -19,6 +19,7 @@ import { ImageUploadComponent } from './image-upload/image-upload.component';
   exports: [
     ImageDetailComponent,
     ImageHistoryComponent,
+    ImageUploadComponent
   ]
 })
 

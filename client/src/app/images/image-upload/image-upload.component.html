@@ -1,2 +1,64 @@
 <div role="tabpanel" class="tab-pane justify-content-center">
+  <div class="card">
+    <div class="card-body mb-auto">
+        <div class="row">
+            <div class="col">
+                <form>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" (change)="validateSelection($event)">
+                    <label class="custom-file-label" for="customFile">{{fileInputText}}</label>
+                  </div>
+                  <div role="alert" class="alert alert-warning" *ngIf="validateTypeWarning">
+                    <h4 class="alert-heading">Invalid File Format</h4>
+                    <span><strong>Please choose a valid file fomat. This form accepts {{validExts}} files</strong></span>
+                  </div>
+                  <div role="alert" class="alert alert-warning" *ngIf="validateCountWarning">
+                    <h4 class="alert-heading">Too many files selected</h4>
+                    <span><strong>Only one file can be uploaded at a time. Please chose one file only.</strong></span>
+                  </div>
+                  <button class="btn btn-primary float-right" type="button" *ngIf="!uploadDisabled" (click)="submitTheFile()">Upload and Analyze!</button>
+                </form>
+            </div>
+        </div>
+        <div *ngIf="uploadResult">
+          <p></p>
+          <div class="card">
+              <div class="card-header">
+                  <h5 class="mb-0">Result</h5>
+              </div>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-sm-4 col-md-3"><img [src]='uploadResult.imageBase64' height="100" class="img-fluid" /></div>
+                      <div class="col-sm-8 col-md-9">
+                          <div class="row">
+                              <div class="col-sm-3 col-md-2"><label class="col-form-label">Filename:</label></div>
+                              <div class="col-sm-9 col-md-10"><label class="col-form-label">{{uploadResult.filename}}</label></div>
+                          </div>
+                          <div class="row">
+                              <div class="col-12">
+                                  <div class="table-responsive">
+                                      <table class="table table-sm">
+                                          <thead>
+                                              <tr>
+                                                  <th>Width</th>
+                                                  <th>Height</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                  <td>800</td>
+                                                  <td>600</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>

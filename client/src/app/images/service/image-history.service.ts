@@ -29,4 +29,9 @@ export class ImageHistoryService {
     return this.http.delete(callUrl);
   }
 
+  uploadRecord(formData: FormData): Observable<UploadedImage>{
+    const uploadUrl = 'api/image-upload';
+    return this.http.post<UploadedImage>(uploadUrl, formData);
+  }
+
 }

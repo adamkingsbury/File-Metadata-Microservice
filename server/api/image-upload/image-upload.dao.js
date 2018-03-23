@@ -10,6 +10,7 @@ imageUploadSchema.statics.getAll = () => {
     imageUpload
     .find(_query)
     .select('-imageBase64')
+    .sort({uploadedAt: 'desc'})
     .exec(function(err, todos) {
       err ? reject(err)
       : resolve(todos);

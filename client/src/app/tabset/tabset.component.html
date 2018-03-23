@@ -1,0 +1,29 @@
+
+<div class="row">
+  <div class="col">
+    <ngb-tabset type="pills" justify="center">
+      <ngb-tab title="About">
+        <ng-template ngbTabContent>
+          <div class="card">
+              <div class="card-body">
+                  <p>This file metadata microservice allows a user to upload a file to a server. The file will then be analysed to determine the height and width properties of the file. The server will send a JSON response with these properties
+                      included.</p>
+                  <p>The microservice will also store the historical record of each request made to the server, including the filename, date and time of the request and the dimesions that were determined</p>
+                  <p>The service has been extened beyond the original project requirements to include a demonstration interface and the capability to store the uploaded images files for viewing as part of history requests.</p>
+              </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Upload a File">
+        <ng-template ngbTabContent>
+          <app-image-upload></app-image-upload>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Upload History">
+        <ng-template ngbTabContent>
+          <app-image-history></app-image-history>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

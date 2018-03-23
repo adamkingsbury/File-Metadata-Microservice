@@ -7,12 +7,14 @@ import { FormsModule }   from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ImagesModule } from './images/images.module';
+import { TabsetComponent } from './tabset/tabset.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TabsetComponent
   ],
   imports: [
     BrowserModule,

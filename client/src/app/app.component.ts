@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'File Metatdata Analysis Microservice';
+  title = 'Image Metadata Analysis Microservice';
 }

@@ -43,7 +43,7 @@
                   <h5 class="mb-0">Result</h5>
               </div>
               <div class="card-body">
-                  <div class="row">
+                  <div class="row" *ngIf="uploadResult.imageBase64">
                       <div class="col-sm-4 col-md-3"><img [src]='uploadResult.imageBase64' height="100" class="img-fluid" /></div>
                       <div class="col-sm-8 col-md-9">
                           <div class="row">
@@ -62,8 +62,8 @@
                                           </thead>
                                           <tbody>
                                               <tr>
-                                                  <td>800</td>
-                                                  <td>600</td>
+                                                  <td>{{uploadResult.dimensions.width}}</td>
+                                                  <td>{{uploadResult.dimensions.height}}</td>
                                               </tr>
                                           </tbody>
                                       </table>

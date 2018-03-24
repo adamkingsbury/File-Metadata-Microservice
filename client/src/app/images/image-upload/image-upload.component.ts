@@ -15,6 +15,7 @@ export class ImageUploadComponent {
   validateTypeWarning: boolean = false;
   validateCountWarning: boolean = false;
   uploadDisabled: boolean = true;
+  uploadInitiated: boolean = false;
   validExts: string[] = ['jpg', 'jpeg', 'png', 'gif'];
   formData: FormData;
   selectedFile: File;
@@ -29,6 +30,7 @@ export class ImageUploadComponent {
     this.validateTypeWarning = false;
     this.validateCountWarning = false;
     this.uploadDisabled = true;
+    this.uploadInitiated = false;
     this.formData = undefined;
     this.selectedFile = undefined;
     this.uploadResult = undefined;
@@ -59,6 +61,7 @@ export class ImageUploadComponent {
     const _this = this;
 
     if (this.selectedFile) {
+      _this.uploadInitiated = true;
       let fd = new FormData();
       fd.append('image', _this.selectedFile, _this.selectedFile.name);
 
@@ -66,6 +69,7 @@ export class ImageUploadComponent {
 
         //setup the dimensions record from the returned result
         _this.uploadResult = result;
+        _this.uploadInitiated = false;
 
         //now read the file as url data on the client side to reduce server bandwidth
         let reader = new FileReader();

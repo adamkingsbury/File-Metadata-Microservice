@@ -20,6 +20,22 @@
                 </form>
             </div>
         </div>
+        <div *ngIf="uploadInitiated && !uploadResult">
+          <p></p>
+          <div class="card">
+              <div class="card-header">
+                  <h5 class="mb-0">Loading.....</h5>
+              </div>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-md-4 offset-4" >
+                        <h1 class="text-center"><span class="oi oi-cloud-upload"></span></h1>
+                        <h3 class="text-center">Uploading your image.</h3>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
         <div *ngIf="uploadResult">
           <p></p>
           <div class="card">

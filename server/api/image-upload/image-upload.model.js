@@ -4,7 +4,7 @@ const _imageUploadSchema = {
   filename: {type: String, required: true},
   fileSize: {type: Number},
   imageBase64: {type: String },
-  uploadedAt: {type: Date, default: Date.now},
+  uploadedAt: {type: Date, default: Date.now, index: true},
   dimensions: {
     width: {type: Number},//, required: true},
     height: {type: Number}//, required: true}
